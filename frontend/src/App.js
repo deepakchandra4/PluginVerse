@@ -8,6 +8,7 @@ import Signup from "./components/main/Signup";
 import Main from "./components/main";
 import AddProduct from "./components/plugins/AddProduct";
 import ManageProduct from "./components/plugins/ManageProduct";
+import ProductBrowser from "./components/plugins/ProductBrowser";
 
 function App() {
   return (
@@ -23,9 +24,10 @@ function App() {
 
           <Route path="footer" element={<Footer />} />
         </Route>
-
+       
         <Route path="addproductplugin" element={<AddProduct />} />
         <Route path="manageproduct" element={<ManageProduct />} />
+        <Route path="productbrowse" element={<ProductBrowser />} />
       </Routes>
     </BrowserRouter>
   );
