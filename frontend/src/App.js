@@ -17,14 +17,13 @@ function App() {
         <Route path="/" element={<Navigate to="/main/home" />} />
         <Route path="main" element={<Main />}>
           <Route path="home" element={<Home />} />
-
           <Route path="login" element={<Login />} />
 
           <Route path="signup" element={<Signup />} />
 
           <Route path="footer" element={<Footer />} />
         </Route>
-       
+
         <Route path="addproductplugin" element={<AddProduct />} />
         <Route path="manageproduct" element={<ManageProduct />} />
         <Route path="productbrowse" element={<ProductBrowser />} />
