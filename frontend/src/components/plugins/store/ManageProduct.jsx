@@ -1,7 +1,7 @@
 import React, { useEffect, useState } from "react";
-import app_config from "../../config";
 import { DataGrid } from "@mui/x-data-grid";
 import { toast } from "react-hot-toast";
+
 
 import {
   GridToolbarContainer,
@@ -10,6 +10,7 @@ import {
   GridToolbarDensitySelector,
   GridToolbarExport,
 } from "@mui/x-data-grid";
+import app_config from "../../../config";
 
 const CustomToolbar = () => {
   return (
@@ -22,7 +23,7 @@ const CustomToolbar = () => {
   );
 };
 
-const ManageItem = () => {
+const ManageProduct = () => {
   const [itemList, setItemList] = useState([]);
   const [loading, setLoading] = useState(false);
   const { apiUrl } = app_config;
@@ -159,4 +160,4 @@ const ManageItem = () => {
   );
 };
 
-export default ManageItem;
+export default ManageProduct;

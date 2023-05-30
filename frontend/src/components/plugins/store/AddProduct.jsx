@@ -1,6 +1,6 @@
 import { useFormik } from "formik";
 import React, { useState } from "react";
-import app_config from "../../config";
+import app_config from "../../../config";
 import { useNavigate } from "react-router-dom";
 import Swal from "sweetalert2";
 

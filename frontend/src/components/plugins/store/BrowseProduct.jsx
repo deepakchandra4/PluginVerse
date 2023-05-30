@@ -1,6 +1,7 @@
 import React, { useEffect, useState } from "react";
-import app_config from "../../config";
+import app_config from "../../../config";
 import useStoreContext from "./StoreContext";
+
 
 const BrowseProduct = () => {
   const [itemList, setItemList] = useState([]);
