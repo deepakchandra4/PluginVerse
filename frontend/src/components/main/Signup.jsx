@@ -2,6 +2,7 @@ import { useFormik } from "formik";
 import React from "react";
 import Swal from "sweetalert2";
 import * as Yup from "yup";
+import { useNavigate } from 'react-router-dom';
 
 const SignupSchema = Yup.object().shape({
   name: Yup.string()
@@ -21,6 +22,8 @@ const SignupSchema = Yup.object().shape({
 });
 
 const Signup = () => {
+
+  const navigate = useNavigate();
   const signupForm = useFormik({
     initialValues: {
       name: "",
@@ -42,13 +45,14 @@ const Signup = () => {
 
       console.log(res.status);
 
-      if(res.status === 200){
+      if(res.status === 201){
 
         Swal.fire({
           icon : 'success',
           title : 'Nice',
           text : 'You have successfully registered'
         })
+        navigate('/main/login');
 
       }else{
         Swal.fire({
