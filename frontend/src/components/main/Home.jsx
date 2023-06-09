@@ -43,7 +43,7 @@ const Home = () => {
                   </h1>
                   <a
                     className="btn btn-primary btn-lg py-3 px-5 me-md-2 mb-3"
-                    href="#"
+                    href='#'
                     role="button"
                     aria-controls="#picker-editor"
                   >
@@ -90,7 +90,7 @@ const Home = () => {
               />
             </div>
             <div className="col-md-6 mb-4 mb-md-0">
-              <h3 className="fw-bold">Art</h3>
+              <h3 className="fw-bold">Manage Cart</h3>
               <div className="mb-2 text-danger small">
                 <i
                   className="fas fa-money-bill me-2"
@@ -99,15 +99,12 @@ const Home = () => {
                 <span>Business</span>
               </div>
               <p className="text-muted">
-                Ut pretium ultricies dignissim. Sed sit amet mi eget urna placerat
-                vulputate. Ut vulputate est non quam dignissim elementum. Donec a
-                ullamcorper diam.
+              It is a software component that allows website owners to add e-commerce functionality to their websites.
+
               </p>
               <p className="text-muted">
-                Lorem ipsum dolor sit amet consectetur adipisicing elit. Ea quae
-                nulla saepe rerum aspernatur odio amet perferendis tempora
-                mollitia? Ratione unde magni omnis quaerat blanditiis cumque
-                dolore placeat rem dignissimos?
+              It typically includes features such as product listings, shopping cart management. 
+
               </p>
               <a
                 className="btn btn-primary"
@@ -129,7 +126,7 @@ const Home = () => {
               />
             </div>
             <div className="col-md-6 mb-4 mb-md-0">
-              <h3 className="fw-bold">Exhibition in Paris</h3>
+              <h3 className="fw-bold">Subscription Plugin</h3>
               <div className="mb-2 text-primary small">
                 <i
                   className="fas fa-money-bill me-2"
@@ -138,17 +135,9 @@ const Home = () => {
                 <span>Art</span>
               </div>
               <p className="text-muted">
-                Duis sagittis, turpis in ullamcorper venenatis, ligula nibh porta
-                dui, sit amet rutrum enim massa in ante. Curabitur in justo at
-                lorem laoreet ultricies. Nunc ligula felis, sagittis eget nisi
-                vitae, sodales vestibulum purus. Vestibulum nibh ipsum, rhoncus
-                vel sagittis nec, placerat vel justo. Duis faucibus sapien eget
-                tortor finibus, a eleifend lectus dictum. Cras tempor convallis
-                magna id rhoncus. Suspendisse potenti. Nam mattis faucibus
-                imperdiet. Proin tempor lorem at neque tempus aliquet. Phasellus
-                at ex volutpat, varius arcu id, aliquam lectus. Vestibulum mattis
-                felis quis ex pharetra luctus. Etiam luctus sagittis massa, sed
-                iaculis est vehicula ut.
+              A subscription plugin is a software component that can be added to a website or application to manage subscription-based services.
+              It allows users to sign up for a subscription plan, manage their account, and process payments.
+
               </p>
               <a
                 className="btn btn-primary"
@@ -179,20 +168,8 @@ const Home = () => {
                 <span>Business</span>
               </div>
               <p className="text-muted">
-                Sed sollicitudin purus sed nulla dignissim ullamcorper. Aenean
-                tincidunt vulputate libero, nec imperdiet sapien pulvinar id.
-                Nullam scelerisque odio vel lacus faucibus, tincidunt feugiat
-                augue ornare. Proin ac dui vel lectus eleifend vestibulum et
-                lobortis risus. Nullam in commodo sapien. Curabitur ut erat congue
-                sem finibus eleifend egestas eu metus. Sed ut dolor id magna
-                rutrum ultrices ut eget libero. Duis vel porttitor odio. Ut
-                pulvinar sed turpis ornare tincidunt. Donec luctus, mi euismod
-                dignissim malesuada, lacus lorem commodo leo, tristique blandit
-                ante mi id metus. Integer et vehicula leo, vitae interdum lectus.
-                Praesent nulla purus, commodo at euismod nec, blandit ultrices
-                erat. Aliquam eros ipsum, interdum et mattis vitae, faucibus vitae
-                justo. Nulla condimentum hendrerit leo, in feugiat ipsum
-                condimentum ac. Maecenas sed blandit dolor.
+              Manages product listings, inventory, and products added by seller for an e-commerce store.
+
               </p>
               <a
                 className="btn btn-primary"

@@ -7,7 +7,9 @@
     "@mui/x-data-grid": "^6.5.0",
     "config": "^3.3.9",
     "formik": "^2.4.0",
+    "react-copy-to-clipboard": "^5.1.0",
     "react-scripts": "^5.0.1",
+    "react-syntax-highlighter": "^15.5.0",
     "styled-components": "^5.3.11",
     "yup": "^1.2.0"
   }
