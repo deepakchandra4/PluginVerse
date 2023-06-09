@@ -1,8 +1,12 @@
 import { useFormik } from "formik";
 import React from "react";
+import { useNavigate } from "react-router-dom";
 import Swal from "sweetalert2";
 
 const Login = () => {
+
+  const navigate = useNavigate();
+
   const loginForm = useFormik({
     initialValues: {
       email: "",
@@ -20,13 +24,19 @@ const Login = () => {
 
       console.log(res.status);
 
-      if (res.status === 200) {
+      if (res.status === 201) {
         Swal.fire({
           icon: "success",
           title: "Nice",
           text: "You have successfully logged in",
         });
-      } else if (res.status === 401) {
+
+        const data = await res.json();
+        console.log(data);
+        sessionStorage.setItem("user", JSON.stringify(data.result));
+        navigate('/user/manageStorePlugin');
+
+      } else if (res.status === 501) {
         Swal.fire({
           icon: "error",
           title: "Error!!",
@@ -45,18 +55,18 @@ const Login = () => {
         <div className="row d-flex justify-content-center align-items-center h-100">
           <div className="col-12 col-md-8 col-lg-6 col-xl-5">
             <div
-              className="card bg-dark text-white"
+              className="card"
               style={{ borderRadius: "1rem" }}
             >
-              <div className="card-body  p-5 text-center text-white">
+              <div className="card-body  p-5 ">
                 <form onSubmit={loginForm.handleSubmit}>
                   <div className="mb-md-5 mt-md-4 pb-5">
-                    <h2 className="fw-bold mb-2 text-uppercase">Login</h2>
-                    <p className="text-white-50 mb-5">
+                    <h2 className="fw-bold mb-2 text-uppercase text-center">Login</h2>
+                    <p className="-50 mb-5 text-center">
                       Please enter your login and password!
                     </p>
                     <div className="form-white mb-4">
-                      <label className="form-label text-light" htmlFor="typeEmailX">
+                      <label className="form-label" htmlFor="typeEmailX">
                         Email
                       </label>
                       <input
@@ -68,7 +78,7 @@ const Login = () => {
                       />
                     </div>
                     <div className=" form-white mb-4">
-                      <label className="form-label text-light" htmlFor="typePasswordX">
+                      <label className="form-label" htmlFor="typePasswordX">
                         Password
                       </label>
                       <input
@@ -80,24 +90,24 @@ const Login = () => {
                       />
                     </div>
                     <p className="small mb-5 pb-lg-2">
-                      <a className="text-white-50" href="#!">
+                      <a className="-50" href="#!">
                         Forgot password?
                       </a>
                     </p>
                     <button
-                      className="btn btn-outline-light btn-lg px-5"
+                      className="btn btn-dark btn w-100 btn-lg px-5"
                       type="submit"
                     >
                       Login
                     </button>
                     <div className="d-flex justify-content-center text-center mt-4 pt-1">
-                      <a href="#!" className="text-white">
+                      <a href="#!" className="">
                         <i className="fab fa-facebook-f fa-lg" />
                       </a>
-                      <a href="#!" className="text-white">
+                      <a href="#!" className="">
                         <i className="fab fa-twitter fa-lg mx-4 px-2" />
                       </a>
-                      <a href="#!" className="text-white">
+                      <a href="#!" className="">
                         <i className="fab fa-google fa-lg" />
                       </a>
                     </div>
@@ -105,7 +115,7 @@ const Login = () => {
                   <div>
                     <p className="mb-0">
                       Don't have an account?{" "}
-                      <a href="#!" className="text-white-50 fw-bold">
+                      <a href="#!" className="-50 fw-bold">
                         Sign Up
                       </a>
                     </p>

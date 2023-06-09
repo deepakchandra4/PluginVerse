@@ -2,7 +2,7 @@ import React from 'react';
 import ReactDOM from 'react-dom/client';
 import './index.css';
 import App from './App';
-import AddProduct from './components/plugins/store/AddProduct';
+import ProductDashboard from './components/plugins/store/ProductDashboard';
 
 const rootEl = document.getElementById('root');
 
@@ -15,13 +15,16 @@ if(rootEl){
   );
 }
 
-const pluginEl = document.getElementById('plugin');
+const pluginEl = document.getElementById('storeplugin');
 
 if(pluginEl){
   const plugin = ReactDOM.createRoot(pluginEl);
+  const pluginid = pluginEl.getAttribute('pluginid');
+  const userid = pluginEl.getAttribute('userid');
+
   plugin.render(
     <React.StrictMode>
-      <AddProduct />
+      <ProductDashboard />
     </React.StrictMode>
   );
 

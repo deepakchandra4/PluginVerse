@@ -1,7 +1,11 @@
 import React from "react";
 import { Link, NavLink } from "react-router-dom";
+import { useUserContext } from "../../context/UserProvider";
 
 const Navbar = () => {
+
+  const {loggedIn, logout} = useUserContext();
+
   return (
     <>
       {/* Navbar */}
@@ -24,12 +28,7 @@ const Navbar = () => {
           <div className="collapse navbar-collapse" id="navbarSupportedContent">
             {/* Navbar brand */}
             <a className="navbar-brand mt-2 mt-lg-0" href="#">
-              <img
-                src="https://mdbcdn.b-cdn.net/img/logo/mdb-transaprent-noshadows.webp"
-                height={15}
-                alt="MDB Logo"
-                loading="lazy"
-              />
+              <h2>Plugin Verse</h2>
             </a>
             {/* Left links */}
             <ul className="navbar-nav me-auto mb-2 mb-lg-0">
@@ -51,9 +50,54 @@ const Navbar = () => {
             </ul>
             {/* Left links */}
           </div>
-          {/* Right elements */}
+
+
+          <div className="d-flex align-items-center">
+          {
+            loggedIn && (
+          <div className="dropdown">
+            <a
+              className="dropdown-toggle d-flex align-items-center hidden-arrow"
+              href="/user/userprofile"
+              id="navbarDropdownMenuAvatar"
+              role="button"
+              data-mdb-toggle="dropdown"
+              aria-expanded="false"
+            >
+              <img
+                src="https://mdbcdn.b-cdn.net/img/new/avatars/2.webp"
+                className="rounded-circle"
+                height={25}
+                alt="Black and White Portrait of a Man"
+                loading="lazy"
+              />
+            </a>
+            <ul
+              className="dropdown-menu dropdown-menu-end"
+              aria-labelledby="navbarDropdownMenuAvatar"
+            >
+              <li>
+                <NavLink className="dropdown-item" to="/user/UserProfile">
+                  My profile
+                </NavLink>
+              </li>
+              <li>
+                <NavLink className="dropdown-item" to="/user/history">
+                  My Predictions
+                </NavLink>
+              </li>
+              <li>
+              <a role='button' className="dropdown-item" href="#" onClick={logout}>
+                  Logout
+                </a>
+              </li>
+            </ul>
+          </div>
+            )
+          }
         </div>
-        {/* Container wrapper */}
+
+        </div>
       </nav>
       {/* Navbar */}
     </>
