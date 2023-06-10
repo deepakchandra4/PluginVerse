@@ -47,6 +47,11 @@ const Navbar = () => {
                   Signup
                 </NavLink>
               </li>
+              <li className="nav-item">
+                <NavLink className="nav-link" to="/main/browse">
+                  Browse Plugins
+                </NavLink>
+              </li>
             </ul>
             {/* Left links */}
           </div>
@@ -86,6 +91,7 @@ const Navbar = () => {
                   My Predictions
                 </NavLink>
               </li>
+              
               <li>
               <a role='button' className="dropdown-item" href="#" onClick={logout}>
                   Logout

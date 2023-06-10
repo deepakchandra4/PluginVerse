@@ -17,6 +17,7 @@ import UserProvider from './context/UserProvider';
 import BrowsePlugin from './components/main/BrowsePlugin';
 import GeneratePlugin from './components/user/GeneratePlugin';
 import { Toaster } from 'react-hot-toast';
+import UserAuth from './components/auth/UserAuth';
 
 function App() {
   return (
@@ -33,7 +34,7 @@ function App() {
             <Route path="browse" element={<BrowsePlugin />} />
           </Route>
 
-          <Route path="user" element={<User />}>
+          <Route path="user" element={ <UserAuth> <User /> </UserAuth> }>
             <Route path="userprofile" element={<UserProfile />} />
             <Route path="manageStorePlugin" element={<ManageStorePlugin />} />
             <Route path="manageCartPlugin" element={<ManageCartPlugin />} />
