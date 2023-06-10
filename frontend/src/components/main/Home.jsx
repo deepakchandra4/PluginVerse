@@ -38,8 +38,8 @@ const Home = () => {
               <div className="row gx-lg-5 align-items-center">
                 <div className="col-lg-6 mb-5 mb-lg-0" style={{ zIndex: 1 }}>
                   <h1 className="my-5 display-3 fw-bold ls-tight">
-                    <span>The best offer</span> <br />
-                    <span className="text-primary">for your business</span>
+                    <span>Get Plugin for</span> <br />
+                    <span className="text-primary">Your E-Commerce Website</span>
                   </h1>
                   <a
                     className="btn btn-primary btn-lg py-3 px-5 me-md-2 mb-3"
