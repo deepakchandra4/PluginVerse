@@ -7,7 +7,7 @@ import Login from './components/main/Login';
 import Signup from './components/main/Signup';
 import Main from './components/main';
 import ManageProduct from './components/plugins/store/ProductDashboard/ManageProduct';
-import BrowseProduct from './components/plugins/store/BrowseProduct';
+import BrowseProduct from './components/plugins/Browser/BrowseProduct';
 import AddProduct from './components/plugins/store/ProductDashboard/AddProduct';
 import User from './components/user';
 import UserProfile from './components/user/UserProfile';

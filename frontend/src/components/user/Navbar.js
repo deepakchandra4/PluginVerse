@@ -20,7 +20,7 @@ const Navbar = () => {
               <li className="custom-link">
                 <NavLink to="/main/home" className="nav-link text-secondary">
                   <div className="d-flex align-items-center flex-column">
-                    <i class="fas fa-home fa-xl d-block"></i>
+                    <i className="fas fa-home fa-xl d-block"></i>
                     <p className="mb-0 mt-2">Home</p>
                   </div>
                 </NavLink>
@@ -28,8 +28,8 @@ const Navbar = () => {
               <li className="custom-link">
                 <NavLink to="/main/login" className="nav-link text-secondary">
                   <div className="d-flex align-items-center flex-column">
-                    <i class="fa fa-sign-in fa-xl d-block"></i>
-                    <i class="" aria-hidden="true"></i>
+                    <i className="fa fa-sign-in fa-xl d-block"></i>
+                    <i className="" aria-hidden="true"></i>
                     <p className="mb-0 mt-2">Login</p>
                   </div>
                 </NavLink>
@@ -37,42 +37,30 @@ const Navbar = () => {
               <li className="custom-link">
                 <NavLink to="/main/signup" className="nav-link text-secondary">
                   <div className="d-flex align-items-center flex-column">
-                    <i class="fa fa-user-circle fa-xl d-block"></i>
+                    <i className="fa fa-user-circle fa-xl d-block"></i>
                     <p className="mb-0 mt-2">Signup</p>
-                  </div>
-                </NavLink>
-              </li>
-              <li className="custom-link">
-                <NavLink to="/main/customize" className="nav-link text-secondary">
-                  <div className="d-flex align-items-center flex-column">
-                    <i class="fas fa-pen-alt fa-xl d-block"></i>
-                    
-                    <p className="mb-0 mt-2">Customize</p>
                   </div>
                 </NavLink>
               </li>
               <li className="custom-link">
                 <NavLink to="/main/browse" className="nav-link text-secondary">
                   <div className="d-flex align-items-center flex-column">
-                    <i class="fas fa-home fa-xl d-block"></i>
+                    
+                    <i className="fas fa-box fa-xl d-block   "></i>
+                    
+                    <p className="mb-0 mt-2">Plugins</p>
+                  </div>
+                </NavLink>
+              </li>
+              <li className="custom-link">
+                <NavLink to="/main/browse" className="nav-link text-secondary">
+                  <div className="d-flex align-items-center flex-column">
+                    <i className="fas fa-home fa-xl d-block"></i>
                     <p className="mb-0 mt-2">Services</p>
                   </div>
                 </NavLink>
               </li>
             </ul>
-          </div>
-        </div>
-      </div>
-      <div className="px-3 py-2 border-bottom">
-        <div className="container d-flex flex-wrap justify-content-center">
-        
-          <div className="text-end">
-            <Link to="/main/login" type="button" className="btn btn-light text-dark me-2">
-              Login
-            </Link>
-            <Link to="/main/signup" type="button" className="btn btn-primary">
-              Sign-up
-            </Link>
           </div>
         </div>
       </div>
