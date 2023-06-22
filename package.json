@@ -17,6 +17,7 @@
     "react-router-dom": "^6.13.0",
     "react-scripts": "^5.0.1",
     "react-syntax-highlighter": "^15.5.0",
+    "stripe": "^12.9.0",
     "styled-components": "^5.3.11",
     "sweetalert2": "^11.7.12",
     "yup": "^1.2.0"
