@@ -34,7 +34,7 @@ const Login = () => {
         const data = await res.json();
         console.log(data);
         sessionStorage.setItem("user", JSON.stringify(data.result));
-        navigate('/user/manageStorePlugin');
+        navigate('/main/browse');
 
       } else if (res.status === 501) {
         Swal.fire({

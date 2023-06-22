@@ -12,13 +12,13 @@ const app_config = {
       name: 'Product Browser',
       description: 'Browse your products',
       image: '/product-manage.jpeg',
-      selectorid: 'storebrowseplugin'
+      selectorid: 'browseplugin'
     },
     {
       name: 'Manage Cart',
       description: 'Manage your cart',
       image: '/cart-manage.jpg',
-      selectorid: 'cartplugin'
+      selectorid: 'browsepluginwithcart'
     },
     {
       name: 'Manage Orders',

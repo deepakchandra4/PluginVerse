@@ -32,16 +32,31 @@ if(pluginEl){
 
 }
 
-const cartEl = document.getElementById('browseplugin');
+const browseEl = document.getElementById('browseplugin');
 
-if(cartEl){
-  const plugin = ReactDOM.createRoot(cartEl);
-  const pluginid = cartEl.getAttribute('pluginid');
-  const userid = cartEl.getAttribute('userid');
+if(browseEl){
+  const plugin = ReactDOM.createRoot(browseEl);
+  const pluginid = browseEl.getAttribute('pluginid');
+  const userid = browseEl.getAttribute('userid');
 
   plugin.render(
     <React.StrictMode>
-      <Browser />
+      <Browser pluginId={pluginid} userId={userid} />
+    </React.StrictMode>
+  );
+
+}
+
+const cartEl = document.getElementById('browsepluginwithcart');
+
+if(cartEl){
+  const cart = ReactDOM.createRoot(cartEl);
+  const pluginid = cartEl.getAttribute('pluginid');
+  const userid = cartEl.getAttribute('userid');
+
+  cart.render(
+    <React.StrictMode>
+      <Browser pluginId={pluginid} userId={userid} includeCart={true} />
     </React.StrictMode>
   );
 
