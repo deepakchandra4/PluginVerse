@@ -1,4 +1,24 @@
 {
+  "name": "pluginverse",
+  "version": "1.0.0",
+  "description": "E-commerce plugin marketplace with modern UI",
+  "private": true,
+  "workspaces": [
+    "frontend",
+    "backend"
+  ],
+  "scripts": {
+    "dev": "concurrently \"npm run dev:backend\" \"npm run dev:frontend\"",
+    "dev:frontend": "cd frontend && npm start",
+    "dev:backend": "cd backend && npm run dev",
+    "build": "cd frontend && npm run build",
+    "install:all": "npm install && cd frontend && npm install && cd ../backend && npm install",
+    "start": "cd backend && npm start",
+    "test": "cd frontend && npm test"
+  },
+  "devDependencies": {
+    "concurrently": "^8.0.1"
+  },
   "dependencies": {
     "@emotion/react": "^11.11.0",
     "@emotion/styled": "^11.11.0",
@@ -21,5 +41,9 @@
     "styled-components": "^5.3.11",
     "sweetalert2": "^11.7.12",
     "yup": "^1.2.0"
+  },
+  "engines": {
+    "node": ">=16.0.0",
+    "npm": ">=8.0.0"
   }
 }

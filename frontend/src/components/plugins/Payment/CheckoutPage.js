@@ -1,95 +1,156 @@
-import React, { useEffect, useState } from 'react';
-import { PaymentElement, LinkAuthenticationElement, useStripe, useElements } from '@stripe/react-stripe-js';
+import React, { useState } from 'react';
 
-export default function CheckoutPage() {
-  const stripe = useStripe();
-  const elements = useElements();
+const CheckoutPage = () => {
+  const [formData, setFormData] = useState({
+    firstName: '',
+    lastName: '',
+    address: '',
+    city: '',
+    zipCode: '',
+    cardNumber: '',
+    expiryDate: '',
+    cvv: ''
+  });
 
-  const [email, setEmail] = useState('');
-  const [message, setMessage] = useState(null);
-  const [isLoading, setIsLoading] = useState(false);
-
-  useEffect(() => {
-    if (!stripe) {
-      return;
-    }
-
-    const clientSecret = new URLSearchParams(window.location.search).get('payment_intent_client_secret');
-
-    if (!clientSecret) {
-      return;
-    }
-
-    stripe.retrievePaymentIntent(clientSecret).then(({ paymentIntent }) => {
-      switch (paymentIntent.status) {
-        case 'succeeded':
-          setMessage('Payment succeeded!');
-          break;
-        case 'processing':
-          setMessage('Your payment is processing.');
-          break;
-        case 'requires_payment_method':
-          setMessage('Your payment was not successful, please try again.');
-          break;
-        default:
-          setMessage('Something went wrong.');
-          break;
-      }
-    });
-  }, [stripe]);
-
-  const handleSubmit = async (e) => {
-    e.preventDefault();
-
-    if (!stripe || !elements) {
-      // Stripe.js hasn't yet loaded.
-      // Make sure to disable form submission until Stripe.js has loaded.
-      return;
-    }
-
-    setIsLoading(true);
-
-    const { error } = await stripe.confirmPayment({
-      elements,
-      confirmParams: {
-        // Make sure to change this to your payment completion page
-        return_url: 'http://localhost:3000'
-      }
-    });
-
-    // This point will only be reached if there is an immediate error when
-    // confirming the payment. Otherwise, your customer will be redirected to
-    // your `return_url`. For some payment methods like iDEAL, your customer will
-    // be redirected to an intermediate site first to authorize the payment, then
-    // redirected to the `return_url`.
-    if (error.type === 'card_error' || error.type === 'validation_error') {
-      setMessage(error.message);
-    } else {
-      setMessage('An unexpected error occurred.');
-    }
-
-    setIsLoading(false);
+  const handleInputChange = (e) => {
+    const { name, value } = e.target;
+    setFormData(prev => ({
+      ...prev,
+      [name]: value
+    }));
   };
 
-  const paymentElementOptions = {
-    layout: 'tabs'
+  const handleSubmit = (e) => {
+    e.preventDefault();
+    // Handle checkout logic here
+    console.log('Checkout data:', formData);
   };
 
   return (
-    <div className="container">
-      <div className="card">
-        <div className="card-body">
-          <form id="payment-form" onSubmit={handleSubmit}>
-            <LinkAuthenticationElement id="link-authentication-element" />
-            <PaymentElement id="payment-element" options={paymentElementOptions} />
-            <button disabled={isLoading || !stripe || !elements} id="submit" className="btn btn-primary mt-3">
-              <span id="button-text">{isLoading ? <div className="spinner" id="spinner"></div> : 'Pay now'}</span>
-            </button>
-            {/* Show any error or success messages */}
-            {message && <div id="payment-message">{message}</div>}
-          </form>
+    <div className="container mt-5">
+      <div className="row justify-content-center">
+        <div className="col-md-8">
+          <div className="card">
+            <div className="card-body">
+              <h2 className="card-title text-center mb-4">Checkout</h2>
+              <form onSubmit={handleSubmit}>
+                <div className="row">
+                  <div className="col-md-6 mb-3">
+                    <label htmlFor="firstName" className="form-label">First Name</label>
+                    <input
+                      type="text"
+                      className="form-control"
+                      id="firstName"
+                      name="firstName"
+                      value={formData.firstName}
+                      onChange={handleInputChange}
+                      required
+                    />
+                  </div>
+                  <div className="col-md-6 mb-3">
+                    <label htmlFor="lastName" className="form-label">Last Name</label>
+                    <input
+                      type="text"
+                      className="form-control"
+                      id="lastName"
+                      name="lastName"
+                      value={formData.lastName}
+                      onChange={handleInputChange}
+                      required
+                    />
+                  </div>
+                </div>
+                <div className="mb-3">
+                  <label htmlFor="address" className="form-label">Address</label>
+                  <input
+                    type="text"
+                    className="form-control"
+                    id="address"
+                    name="address"
+                    value={formData.address}
+                    onChange={handleInputChange}
+                    required
+                  />
+                </div>
+                <div className="row">
+                  <div className="col-md-6 mb-3">
+                    <label htmlFor="city" className="form-label">City</label>
+                    <input
+                      type="text"
+                      className="form-control"
+                      id="city"
+                      name="city"
+                      value={formData.city}
+                      onChange={handleInputChange}
+                      required
+                    />
+                  </div>
+                  <div className="col-md-6 mb-3">
+                    <label htmlFor="zipCode" className="form-label">ZIP Code</label>
+                    <input
+                      type="text"
+                      className="form-control"
+                      id="zipCode"
+                      name="zipCode"
+                      value={formData.zipCode}
+                      onChange={handleInputChange}
+                      required
+                    />
+                  </div>
+                </div>
+                <hr />
+                <h5>Payment Information</h5>
+                <div className="mb-3">
+                  <label htmlFor="cardNumber" className="form-label">Card Number</label>
+                  <input
+                    type="text"
+                    className="form-control"
+                    id="cardNumber"
+                    name="cardNumber"
+                    value={formData.cardNumber}
+                    onChange={handleInputChange}
+                    placeholder="1234 5678 9012 3456"
+                    required
+                  />
+                </div>
+                <div className="row">
+                  <div className="col-md-6 mb-3">
+                    <label htmlFor="expiryDate" className="form-label">Expiry Date</label>
+                    <input
+                      type="text"
+                      className="form-control"
+                      id="expiryDate"
+                      name="expiryDate"
+                      value={formData.expiryDate}
+                      onChange={handleInputChange}
+                      placeholder="MM/YY"
+                      required
+                    />
+                  </div>
+                  <div className="col-md-6 mb-3">
+                    <label htmlFor="cvv" className="form-label">CVV</label>
+                    <input
+                      type="text"
+                      className="form-control"
+                      id="cvv"
+                      name="cvv"
+                      value={formData.cvv}
+                      onChange={handleInputChange}
+                      placeholder="123"
+                      required
+                    />
+                  </div>
+                </div>
+                <button type="submit" className="btn btn-primary w-100">
+                  Complete Purchase
+                </button>
+              </form>
+            </div>
+          </div>
         </div>
       </div>
     </div>
   );
-}
+};
+
+export default CheckoutPage;

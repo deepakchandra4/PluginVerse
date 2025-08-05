@@ -1,4 +1,4 @@
-import React, { useEffect, useState } from 'react';
+import React, { useState, useEffect } from 'react';
 import { DataGrid } from '@mui/x-data-grid';
 import { toast } from 'react-hot-toast';
 
@@ -18,185 +18,82 @@ const CustomToolbar = () => {
 };
 
 const ManageProduct = () => {
-  const [itemList, setItemList] = useState([]);
-  const [loading, setLoading] = useState(false);
-  const { apiUrl } = app_config;
-
-  const [selItem, setSelItem] = useState(null);
-
-  const columns = [
-    { field: '_id', headerName: 'ID', width: 250 },
-
-    {
-      field: 'created_at',
-      headerName: 'Date',
-      width: 100,
-      valueFormatter: (params) => new Date(params?.value).toLocaleDateString()
-    },
-    { field: 'title', headerName: 'Title', width: 200 },
-    { field: 'price', headerName: 'Price', width: 80 },
-    { field: 'category', headerName: 'Category', width: 100 },
-    { field: 'quantity', headerName: 'Quantity', width: 100 },
-    {
-      field: 'action',
-      headerName: 'Action',
-      sortable: false,
-      renderCell: (params) => {
-        const onClick = (e) => {
-          e.stopPropagation(); // don't select this row after clicking
-          console.log(params.row._id);
-          return deleteItem(params.row._id);
-        };
-        return (
-          <button className="btn btn-danger" onClick={onClick}>
-            Delete
-          </button>
-        );
-      }
-    },
-    {
-      field: 'action2',
-      headerName: 'Action',
-      sortable: false,
-      renderCell: (params) => {
-        const onClick = (e) => {
-          e.stopPropagation(); // don't select this row after clicking
-          setSelItem(params.row);
-        };
-
-        return (
-          <button className="btn btn-primary" onClick={onClick}>
-            <i class="fas fa-edit "></i>
-          </button>
-        );
-      }
-    }
-  ];
-
-  const deleteItem = async (id) => {
-    const res = await fetch(`${apiUrl}/store/delete/${id}`, {
-      method: 'DELETE'
-    });
-    console.log(res.json);
-    if (res.status === 200) {
-      fetchItems();
-      Swal.fire({
-        icon: 'success',
-        title: 'Success',
-        text: 'Item Deleted Successfully',
-        showConfirmButton: false,
-        timer: 1500
-      });
-    }
-  };
-
-  const updateItem = async (id, data) => {
-    const res = await fetch(`${apiUrl}/store/update/${id}`, {
-      method: 'PUT'
-    });
-    console.log(res.json);
-    if (res.status === 200) {
-      fetchItems();
-      Swal.fire({
-        icon: 'success',
-        title: 'Success',
-        text: 'Item Deleted Successfully',
-        showConfirmButton: false,
-        timer: 1500
-      });
-    }
-  };
+  const [products, setProducts] = useState([]);
+  const [loading, setLoading] = useState(true);
 
   const fetchItems = async () => {
-    setLoading(true);
-    const res = await fetch(`${apiUrl}/store/getall`);
-    const data = await res.json();
-    console.log(data);
-    setItemList(data.result);
-    setLoading(false);
+    try {
+      // Simulate API call
+      const mockProducts = [
+        { id: 1, title: 'Product 1', price: 29.99, category: 'Electronics', brand: 'Brand A' },
+        { id: 2, title: 'Product 2', price: 39.99, category: 'Clothing', brand: 'Brand B' },
+        { id: 3, title: 'Product 3', price: 49.99, category: 'Books', brand: 'Brand C' },
+      ];
+      setProducts(mockProducts);
+      setLoading(false);
+    } catch (error) {
+      console.error('Error fetching products:', error);
+      setLoading(false);
+    }
   };
 
   useEffect(() => {
     fetchItems();
-  }, []);
+  }, []); // eslint-disable-line react-hooks/exhaustive-deps
 
-  const displayItems = () => {
-    if (!loading) {
-      return (
-        <DataGrid
-          style={{ backgroundColor: 'white' }}
-          rows={itemList}
-          columns={columns}
-          pagination
-          getRowId={(obj) => obj._id}
-          slots={{
-            toolbar: CustomToolbar
-          }}
-          checkboxSelection
-          onRowSelectionModelChange={(e) => {
-            console.log(e);
-          }}
-        />
-      );
-    }
+  const handleDelete = (id) => {
+    setProducts(products.filter(product => product.id !== id));
   };
 
-  return (
-    <div
-      style={{
-        minHeight: '100vh',
-        backgroundSize: 'cover',
-        backgroundImage: `url('https://image.slidesdocs.com/responsive-images/background/blue-white-line-e-commerce-banner-simple-powerpoint-background_bceaf9c18d__960_540.jpg')`
-      }}
-    >
-      <header className="bg-dark">
-        <div className="container py-5">
-          <h1 className="text-white fw-bold">Manage Store</h1>
+  if (loading) {
+    return (
+      <div className="container mt-5">
+        <div className="text-center">
+          <div className="spinner-border text-primary" role="status">
+            <span className="visually-hidden">Loading...</span>
+          </div>
         </div>
-      </header>
-      <div className="container">
-        {displayItems()}
-        {selItem && (
-          <div className="card mt-5 ">
-            <div className="card-header">
-              <h4>Product Details ({selItem._id})</h4>
-            </div>
-            <div className="card-body">
-              <div className="card-body">
-                <div className="row">
-                  {selItem.images.map((img) => (
-                    <div className="col-3">
-                      <img src={apiUrl + '/' + img} alt="" className="img-fluid" />
-                    </div>
-                  ))}
-                </div>
-                {[
-                  { name: 'Product Name', key: 'title' },
-                  { name: 'Description', key: 'description' },
-                  { name: 'Features', key: 'features' },
-                  { name: 'Price', key: 'price' },
-                  { name: 'Quantity', key: 'quantity' },
-                  { name: 'Category', key: 'category' },
-                  { name: 'Brand', key: 'brand' }
-                ].map((property) => (
-                  <p className="h5 mt-3">
-                    {' '}
-                    {property.name} : {selItem[property.key]}{' '}
-                  </p>
-                ))}
-              </div>
+      </div>
+    );
+  }
 
-              <div className="card-footer">
-                <button className="btn btn-warning" onClick={() => setSelItem(null)}>
-                  Close
-                </button>
-                <button className="btn btn-danger ms-3" onClick={() => deleteItem(selItem._id)}>
-                  Delete Item
-                </button>
+  return (
+    <div className="container mt-5">
+      <div className="d-flex justify-content-between align-items-center mb-4">
+        <h2>Manage Products</h2>
+        <button className="btn btn-primary">
+          <i className="fas fa-plus me-2"></i>
+          Add New Product
+        </button>
+      </div>
+      
+      <div className="row">
+        {products.map((product) => (
+          <div key={product.id} className="col-md-6 col-lg-4 mb-4">
+            <div className="card h-100">
+              <div className="card-body">
+                <h5 className="card-title">{product.title}</h5>
+                <p className="text-muted mb-2">{product.brand}</p>
+                <p className="text-primary fw-bold mb-2">${product.price}</p>
+                <span className="badge bg-secondary mb-3">{product.category}</span>
+                
+                <div className="d-flex gap-2">
+                  <button className="btn btn-sm btn-outline-primary">
+                    <i className="fas fa-edit me-1"></i>
+                    Edit
+                  </button>
+                  <button 
+                    className="btn btn-sm btn-outline-danger"
+                    onClick={() => handleDelete(product.id)}
+                  >
+                    <i className="fas fa-trash me-1"></i>
+                    Delete
+                  </button>
+                </div>
               </div>
             </div>
           </div>
-        )}
+        ))}
       </div>
     </div>
   );

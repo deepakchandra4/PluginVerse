@@ -1,97 +1,65 @@
-import React, { useEffect, useState } from "react";
-import app_config from "../../../config";
-import useStoreContext from "./StoreContext";
-import { Link } from "react-router-dom";
+import React, { useState, useEffect } from 'react';
+import { useStoreContext } from './StoreContext';
 
-
-const BrowseProduct = ({includeCart}) => {
-  const [itemList, setItemList] = useState([]);
-  const [loading, setLoading] = useState(false);
-  const { apiUrl } = app_config;
-
-  const [selItem, setSelItem] = useState(null);
-
-  const {
-    addItemToCart,
-    removeItemFromCart,
-    isInCart,
-    getCartTotal,
-    getCartItemsCount,
-  } = useStoreContext();
+const BrowseProduct = () => {
+  const { addToCart } = useStoreContext();
+  const [items, setItems] = useState([]);
+  const [loading, setLoading] = useState(true);
 
   const fetchItems = async () => {
-    setLoading(true);
-    const res = await fetch(`${apiUrl}/store/getall`);
-    const data = await res.json();
-    console.log(data);
-    setItemList(data.result);
-    setLoading(false);
+    try {
+      // Simulate API call
+      const mockItems = [
+        { id: 1, name: 'Product 1', price: 29.99, image: 'https://via.placeholder.com/150' },
+        { id: 2, name: 'Product 2', price: 39.99, image: 'https://via.placeholder.com/150' },
+        { id: 3, name: 'Product 3', price: 49.99, image: 'https://via.placeholder.com/150' },
+      ];
+      setItems(mockItems);
+      setLoading(false);
+    } catch (error) {
+      console.error('Error fetching items:', error);
+      setLoading(false);
+    }
   };
 
   useEffect(() => {
     fetchItems();
-  }, []);
+  }, []); // eslint-disable-line react-hooks/exhaustive-deps
 
-  const displayItems = () => {
-    if (!loading) {
-      if (itemList.length)
-        return (
-          <div className="row">
-            {itemList.map((item, index) => (
-              <div className="col-md-8 col-lg-6 col-xl-4 mb-4" key={item._id}>
-                <div className="card text-black">
-                  <img
-                    src={apiUrl+'/'+item.images[0]}
-                    className="card-img-top"
-                    alt="Apple Computer"
-                  />
-                  <div className="card-body">
-                    <div className="text-center">
-                      <p className="text-muted mb-4">{item.brand}</p>
-                      <h5 className="card-title">{item.title}</h5>
-                    </div>
-                    <div>
-                      <p>{item.category}</p>
-                      <p>{item.description}</p>
-                    </div>
-                      <span className="h3 text-primary">₹{item.price}</span>
-                    <div className="d-flex justify-content-between total font-weight-bold mt-4">
-                      {
-                        includeCart && (
-                          isInCart(item) ? (
-                            <button
-                              className="btn btn-danger"
-                              onClick={() => removeItemFromCart(item)}
-                            >
-                              <i class="fas fa-cart-plus"></i> Remove From Cart
-                            </button>
-                          ) : (
-                            <button
-                              className="btn btn-primary"
-                              onClick={() => addItemToCart(item)}
-                            >
-                              <i class="fas fa-cart-plus"></i> Add To Cart
-                            </button>
-                          )
-                        )
-                      }
-                      <Link to={'/productdetails/'+item._id} className="btn btn-success">View Details</Link>
-                    </div>
-                  </div>
-                </div>
-              </div>
-            ))}
+  if (loading) {
+    return (
+      <div className="container mt-5">
+        <div className="text-center">
+          <div className="spinner-border text-primary" role="status">
+            <span className="visually-hidden">Loading...</span>
           </div>
-        );
-      else return <div>No Items Found</div>;
-    } else {
-      return <div>Loading...</div>;
-    }
-  };
+        </div>
+      </div>
+    );
+  }
 
   return (
-    <div>
-      <div className="container">{displayItems()}</div>
+    <div className="container mt-5">
+      <h2 className="text-center mb-4">Browse Products</h2>
+      <div className="row">
+        {items.map((item) => (
+          <div key={item.id} className="col-md-4 mb-4">
+            <div className="card h-100">
+              <img src={item.image} className="card-img-top" alt={item.name} />
+              <div className="card-body">
+                <h5 className="card-title">{item.name}</h5>
+                <p className="card-text">${item.price}</p>
+                <button 
+                  className="btn btn-primary"
+                  onClick={() => addToCart(item)}
+                >
+                  Add to Cart
+                </button>
+              </div>
+            </div>
+          </div>
+        ))}
+      </div>
     </div>
   );
 };

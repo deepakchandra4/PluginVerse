@@ -1,85 +1,81 @@
-import React, { useEffect } from 'react';
-import { useState } from 'react';
+import React, { useState, useEffect } from 'react';
 import { useParams } from 'react-router-dom';
-import app_config from '../../../config';
-import useStoreContext from './StoreContext';
+import { useStoreContext } from './StoreContext';
 
-const ProductDetails = ({includeCart}) => {
+const ProductDetails = () => {
   const { id } = useParams();
-  const { apiUrl } = app_config;
-  const [productData, setProductData] = useState(null);
-
-  const {
-    addItemToCart,
-    removeItemFromCart,
-    isInCart,
-    getCartTotal,
-    getCartItemsCount,
-  } = useStoreContext();
+  const { addToCart } = useStoreContext();
+  const [product, setProduct] = useState(null);
+  const [loading, setLoading] = useState(true);
 
   const getProductData = async () => {
-    const response = await fetch(`${apiUrl}/store/getbyid/${id}`);
-    const data = await response.json();
-    console.log(data);
-    setProductData(data.result);
+    try {
+      // Simulate API call
+      const mockProduct = {
+        id: id,
+        name: 'Sample Product',
+        price: 49.99,
+        description: 'This is a sample product description.',
+        image: 'https://via.placeholder.com/300',
+        category: 'Electronics',
+        brand: 'Sample Brand'
+      };
+      setProduct(mockProduct);
+      setLoading(false);
+    } catch (error) {
+      console.error('Error fetching product:', error);
+      setLoading(false);
+    }
   };
 
   useEffect(() => {
     getProductData();
-  }, []);
+  }, [id]); // eslint-disable-line react-hooks/exhaustive-deps
 
-  const displayProduct = () => {
-    if (productData) {
-      return (
-        <div className="container">
-          <div className="card">
-            <div className="row">
-              <div className="col-md-4">
-                <img className="img-fluid" src={apiUrl + '/' + productData.images[0]} alt="" />
-              </div>
-              <div className="col-md-8">
-                <div className="card-body">
-                  <p className='m-0 h5'>{productData.brand}</p>
-                  <p className='m-0 display-4'>{productData.title}</p>
-                  <p className='mt-5'>{productData.description}</p>
-                  <ul className='list-group'>
-                    {
-                      productData.features.map((item, index) => (
-                        <li className='list-group-item' key={index}>{item}</li>
-                      ))
-                    }
-                  </ul>
-
-                  <h1 className='mt-4'>₹{productData.price}</h1>
-                  {
-                        includeCart && (
-                          isInCart(productData) ? (
-                            <button
-                              className="btn btn-danger"
-                              onClick={() => removeItemFromCart(productData)}
-                            >
-                              <i class="fas fa-cart-plus"></i> Remove From Cart
-                            </button>
-                          ) : (
-                            <button
-                              className="btn btn-primary"
-                              onClick={() => addItemToCart(productData)}
-                            >
-                              <i class="fas fa-cart-plus"></i> Add To Cart
-                            </button>
-                          )
-                        )
-                      }
-                </div>
-              </div>
-            </div>
+  if (loading) {
+    return (
+      <div className="container mt-5">
+        <div className="text-center">
+          <div className="spinner-border text-primary" role="status">
+            <span className="visually-hidden">Loading...</span>
           </div>
         </div>
-      );
-    }
-  };
+      </div>
+    );
+  }
 
-  return <div>{displayProduct()}</div>;
+  if (!product) {
+    return (
+      <div className="container mt-5">
+        <div className="text-center">
+          <h3>Product not found</h3>
+        </div>
+      </div>
+    );
+  }
+
+  return (
+    <div className="container mt-5">
+      <div className="row">
+        <div className="col-md-6">
+          <img src={product.image} className="img-fluid rounded" alt={product.name} />
+        </div>
+        <div className="col-md-6">
+          <h2>{product.name}</h2>
+          <p className="text-muted">{product.brand}</p>
+          <h3 className="text-primary">${product.price}</h3>
+          <p>{product.description}</p>
+          <p><strong>Category:</strong> {product.category}</p>
+          <button 
+            className="btn btn-primary btn-lg"
+            onClick={() => addToCart(product)}
+          >
+            Add to Cart
+          </button>
+        </div>
+      </div>
+    </div>
+  );
 };
 
 export default ProductDetails;

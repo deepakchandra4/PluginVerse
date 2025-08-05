@@ -1,433 +1,330 @@
-import React from "react";
+import React, { useEffect, useState } from "react";
 import DeepakPic from "../images/Passport_Photograph.jpg";
 import SamarthRai from '../images/SamarthRai.jpg';
 
 const Home = () => {
+  const [isVisible, setIsVisible] = useState({
+    hero: false,
+    features: false,
+    stats: false,
+    testimonials: false
+  });
+
+  useEffect(() => {
+    const handleScroll = () => {
+      const scrollY = window.scrollY;
+      const windowHeight = window.innerHeight;
+
+      // Hero section animation
+      if (scrollY < windowHeight) {
+        setIsVisible(prev => ({ ...prev, hero: true }));
+      }
+
+      // Features section animation
+      if (scrollY > windowHeight * 0.5) {
+        setIsVisible(prev => ({ ...prev, features: true }));
+      }
+
+      // Stats section animation
+      if (scrollY > windowHeight * 1.5) {
+        setIsVisible(prev => ({ ...prev, stats: true }));
+      }
+
+      // Testimonials section animation
+      if (scrollY > windowHeight * 2.5) {
+        setIsVisible(prev => ({ ...prev, testimonials: true }));
+      }
+    };
+
+    window.addEventListener('scroll', handleScroll);
+    handleScroll(); // Initial check
+
+    return () => window.removeEventListener('scroll', handleScroll);
+  }, []);
+
   return (
-    <div>
-      <div data-draggable="true" className="" style={{ position: "relative" }}>
-        {/**/}
-        {/**/}
-        <section
-          draggable="false"
-          className="overflow-hidden pt-0"
-          data-v-271253ee=""
-        >
-          <section className="mb-10 position-relative">
-            {/* SVG Background */}
-            <svg
-              data-name="Layer 1"
-              xmlns="http://www.w3.org/2000/svg"
-              viewBox="0 0 1440 320"
-              preserveAspectRatio="none"
-              className="svg position-absolute d-none d-lg-block"
-              style={{
-                height: 560,
-                width: "100%",
-                zIndex: 0,
-                overflow: "hidden",
-              }}
-            >
-              <defs>
-                <linearGradient id="sw-gradient-0" x1={0} x2={0} y1={1} y2={0}>
-                  <stop stopColor="hsl(217, 102%, 99%)" offset="0%" />
-                  <stop stopColor="hsl(217,88%, 93%)" offset="100%" />
-                </linearGradient>
-              </defs>
-              <path
-                fill="url(#sw-gradient-0)"
-                d="M 0.351 264.418 C 0.351 264.418 33.396 268.165 47.112 270.128 C 265.033 301.319 477.487 325.608 614.827 237.124 C 713.575 173.504 692.613 144.116 805.776 87.876 C 942.649 19.853 1317.845 20.149 1440.003 23.965 C 1466.069 24.779 1440.135 24.024 1440.135 24.024 L 1440 0 L 1360 0 C 1280 0 1120 0 960 0 C 800 0 640 0 480 0 C 320 0 160 0 80 0 L 0 0 L 0.351 264.418 Z"
-              />
-            </svg>
-            {/* Content */}
-            <div className="px-4 py-5 px-md-5 text-center text-lg-start">
-              <div className="container">
-                <div className="row gx-lg-5 align-items-center">
-                  <div className="col-lg-6 mb-5 mb-lg-0" style={{ zIndex: 1 }}>
-                    <h1 className="my-5 display-3 fw-bold ls-tight">
-                      <span>Get Plugin for</span> <br />
-                      <span className="text-primary">
-                        Your E-Commerce Website
-                      </span>
-                    </h1>
-                    <a
-                      className="btn btn-primary btn-lg py-3 px-5 me-md-2 mb-3"
-                      href="#"
-                      role="button"
-                      aria-controls="#picker-editor"
-                    >
-                      Get started
-                    </a>
-                    <a
-                      className="btn btn-link btn-lg py-3 px-5 mb-3"
-                      data-ripple-color="primary"
-                      href="#"
-                      role="button"
-                      aria-controls="#picker-editor"
-                    >
-                      Learn more
-                    </a>
-                  </div>
-                  <div className="col-lg-6 mb-5 mb-lg-0" style={{ zIndex: 1 }}>
-                    <img
-                      src="https://image.lexica.art/full_jpg/6d453945-5295-4380-b55a-46b99dd2c0d1"
-                      className="w-100 rounded-4 shadow-5"
-                      alt=""
-                      aria-controls="#picker-editor"
-                    />
-                  </div>
-                </div>
-              </div>
-            </div>
-          </section>
-        </section>
-        {/**/}
-      </div>
-      <div data-draggable="true" className="" style={{ position: "relative" }}>
-        {/**/}
-        {/**/}
-        <section
-          draggable="false"
-          className="container pt-5"
-          data-v-271253ee=""
-        >
-          <section className="mb-10">
-            <h2 className="fw-bold mb-5 text-center">Latest articles</h2>
-            <div className="row gx-lg-5 mb-5 align-items-center">
-              <div className="col-md-6 mb-4 mb-md-0">
-                <img
-                  src="https://image.lexica.art/full_jpg/86a59053-77a8-4837-807d-c5e6aaf89959"
-                  className="w-100 shadow-4-strong rounded-4 mb-4"
-                  alt=""
-                  aria-controls="#picker-editor"
-                />
-              </div>
-              <div className="col-md-6 mb-4 mb-md-0">
-                <h3 className="fw-bold">Manage Cart Plugin</h3>
-                <div className="mb-2 text-danger small">
-                  <i
-                    className="fas fa-money-bill me-2"
-                    aria-controls="#picker-editor"
-                  />
-                  <span>Business</span>
-                </div>
-                <p className="text-muted">
-                  It is a software component that allows website owners to add
-                  e-commerce functionality to their websites.
+    <div className="home-container">
+      {/* Hero Section */}
+      <section className={`hero-section ${isVisible.hero ? 'animate-fade-in-up' : ''}`}>
+        <div className="container">
+          <div className="row gx-lg-5 align-items-center min-vh-100">
+            <div className="col-lg-6 mb-5 mb-lg-0">
+              <div className={`${isVisible.hero ? 'animate-fade-in-left' : ''}`}>
+                <h1 className="display-3 fw-bold ls-tight mb-4">
+                  <span className="text-dark">Get Plugin for</span> <br />
+                  <span className="gradient-text">Your E-Commerce Website</span>
+                </h1>
+                <p className="lead text-muted mb-4">
+                  Transform your online store with powerful, customizable plugins designed to enhance user experience and boost sales.
                 </p>
-                <p className="text-muted">
-                  It typically includes features such as product listings,
-                  shopping cart management.
-                </p>
-                <a
-                  className="btn btn-primary"
-                  href="#"
-                  role="button"
-                  aria-controls="#picker-editor"
-                >
-                  Read more
-                </a>
-              </div>
-            </div>
-            <div className="row gx-lg-5 mb-5 flex-lg-row-reverse align-items-center">
-              <div className="col-md-6 mb-4 mb-md-0">
-                <img
-                  src="https://image.lexica.art/full_jpg/37c0f8ac-6945-48bc-ab88-29f222bdafa8"
-                  className="w-100 shadow-4-strong rounded-4 mb-4"
-                  alt=""
-                  aria-controls="#picker-editor"
-                />
-              </div>
-              <div className="col-md-6 mb-4 mb-md-0">
-                <h3 className="fw-bold">Product Browser Plugin</h3>
-                <div className="mb-2 text-primary small">
-                  <i
-                    className="fas fa-money-bill me-2"
-                    aria-controls="#picker-editor"
-                  />
-                  <span>Art</span>
-                </div>
-                <p className="text-muted">
-                  Product browser plugins are specifically designed to assist
-                  users while browsing e-commerce websites, helping them find
-                  products, compare prices, and make informed purchasing
-                  decisions
-                </p>
-                <a
-                  className="btn btn-primary"
-                  href="#"
-                  role="button"
-                  aria-controls="#picker-editor"
-                >
-                  Read more
-                </a>
-              </div>
-            </div>
-            <div className="row gx-lg-5 mb-5 align-items-center">
-              <div className="col-md-6 mb-4 mb-md-0">
-                <img
-                  src="https://image.lexica.art/full_jpg/775dc77b-d9ba-4ed7-8ffd-930baff5b6d4"
-                  className="w-100 shadow-4-strong rounded-4 mb-4"
-                  alt=""
-                  aria-controls="#picker-editor"
-                />
-              </div>
-              <div className="col-md-6 mb-4 mb-md-0">
-                <h3 className="fw-bold">Manage Products Plugin</h3>
-                <div className="mb-2 text-warning small">
-                  <i
-                    className="fas fa-money-bill me-2"
-                    aria-controls="#picker-editor"
-                  />
-                  <span>Business</span>
-                </div>
-                <p className="text-muted">
-                  A "Manage Product" plugin in the context of e-commerce
-                  typically refers to a software extension or tool that helps
-                  online sellers or store owners efficiently manage their
-                  product listings, inventory, and other aspects of their
-                  e-commerce operations
-                </p>
-                <a
-                  className="btn btn-primary"
-                  href="#"
-                  role="button"
-                  aria-controls="#picker-editor"
-                >
-                  Read more
-                </a>
-              </div>
-            </div>
-          </section>
-        </section>
-        {/**/}
-      </div>
-      <div
-        data-draggable="true"
-        className=""
-        style={{ position: "relative" }}
-        draggable="false"
-      >
-        {/**/}
-        {/**/}
-        <section
-          draggable="false"
-          className="container pt-5"
-          data-v-271253ee=""
-        >
-          <section className="mb-10 text-center">
-            <h2 className="fw-bold mb-5 text-center">
-              <span>There are good reasons to</span>{" "}
-              <u className="text-primary">be proud</u>
-            </h2>
-            <div className="row gx-lg-5">
-              <div className="col-md-4 mb-5 mb-md-4">
-                <div className="p-3 bg-primary rounded-4 shadow-2-strong d-inline-block mb-4">
-                  <i
-                    className="fas fa-smile-beam fa-lg text-white fa-fw"
-                    aria-controls="#picker-editor"
-                  />
-                </div>
-                <h3 className="fw-bold text-primary mb-3">1000</h3>
-                <h5 className="text-muted mb-0">Happy customers</h5>
-              </div>
-              <div className="col-md-4 mb-5 mb-md-4">
-                <div className="p-3 bg-primary rounded-4 shadow-2-strong d-inline-block mb-4">
-                  <i
-                    className="fas fa-box-open fa-lg text-white fa-fw"
-                    aria-controls="#picker-editor"
-                  />
-                </div>
-                <h3 className="fw-bold text-primary mb-3">70%</h3>
-                <h5 className="text-muted mb-0">Growth</h5>
-              </div>
-              <div className="col-md-4 mb-5 mb-md-4">
-                <div className="p-3 bg-primary rounded-4 shadow-2-strong d-inline-block mb-4">
-                  <i
-                    className="fas fa-cogs fa-lg text-white fa-fw"
-                    aria-controls="#picker-editor"
-                  />
-                </div>
-                <h3 className="fw-bold text-primary mb-3">49</h3>
-                <h5 className="text-muted mb-0">Projects</h5>
-              </div>
-            </div>
-          </section>
-        </section>
-        {/**/}
-      </div>
-      <div data-draggable="true" className="" style={{ position: "relative" }}>
-        {/**/}
-        {/**/}
-        <section
-          draggable="false"
-          className="container pt-5"
-          data-v-271253ee=""
-        >
-          <section className="mb-10 text-center">
-            <h2 className="fw-bold mb-5">Testimonials</h2>
-            <div className="row gx-lg-5">
-              <div className="col-lg-4 col-md-12 mb-4 mb-lg-0">
-                <div className="card">
-                  <div
-                    className="bg-image hover-overlay ripple"
-                    data-ripple-color="light"
+                <div className="d-flex flex-wrap gap-3">
+                  <button
+                    className="btn btn-primary btn-lg"
+                    onClick={() => document.getElementById('features')?.scrollIntoView({ behavior: 'smooth' })}
                   >
+                    <i className="fas fa-rocket me-2"></i>
+                    Get Started
+                  </button>
+                  <button
+                    className="btn btn-secondary btn-lg"
+                    onClick={() => document.getElementById('learn-more')?.scrollIntoView({ behavior: 'smooth' })}
+                  >
+                    <i className="fas fa-info-circle me-2"></i>
+                    Learn More
+                  </button>
+                </div>
+              </div>
+            </div>
+            <div className="col-lg-6 mb-5 mb-lg-0">
+              <div className={`${isVisible.hero ? 'animate-fade-in-right' : ''}`}>
+                <img
+                  src="https://image.lexica.art/full_jpg/6d453945-5295-4380-b55a-46b99dd2c0d1"
+                  className="w-100 rounded-4 shadow-5 animate-float"
+                  alt="E-commerce plugins illustration"
+                  style={{ maxHeight: '500px', objectFit: 'cover' }}
+                />
+              </div>
+            </div>
+          </div>
+        </div>
+      </section>
+
+      {/* Features Section */}
+      <section id="features" className={`py-5 ${isVisible.features ? 'animate-fade-in-up' : ''}`}>
+        <div className="container">
+          <div className="text-center mb-5">
+            <h2 className="fw-bold mb-3 gradient-text">Latest Plugins</h2>
+            <p className="lead text-muted">Discover our most popular e-commerce plugins</p>
+          </div>
+          
+          <div className="row gx-lg-5">
+            <div className="col-md-6 mb-5">
+              <div className={`card h-100 ${isVisible.features ? 'animate-fade-in-left' : ''}`}>
+                <div className="card-body p-4">
+                  <div className="d-flex align-items-center mb-3">
+                    <div className="bg-primary rounded-circle p-3 me-3">
+                      <i className="fas fa-shopping-cart text-white"></i>
+                    </div>
+                    <h3 className="fw-bold mb-0">Manage Cart Plugin</h3>
+                  </div>
+                  <div className="mb-3">
+                    <span className="badge bg-danger">Business</span>
+                  </div>
+                  <p className="text-muted mb-3">
+                    Advanced shopping cart management with real-time updates, inventory tracking, and seamless checkout experience.
+                  </p>
+                  <ul className="list-unstyled mb-4">
+                    <li><i className="fas fa-check text-success me-2"></i>Real-time inventory updates</li>
+                    <li><i className="fas fa-check text-success me-2"></i>Advanced cart analytics</li>
+                    <li><i className="fas fa-check text-success me-2"></i>Multi-currency support</li>
+                  </ul>
+                  <button className="btn btn-primary">
+                    <i className="fas fa-arrow-right me-2"></i>
+                    Learn More
+                  </button>
+                </div>
+              </div>
+            </div>
+
+            <div className="col-md-6 mb-5">
+              <div className={`card h-100 ${isVisible.features ? 'animate-fade-in-right' : ''}`}>
+                <div className="card-body p-4">
+                  <div className="d-flex align-items-center mb-3">
+                    <div className="bg-success rounded-circle p-3 me-3">
+                      <i className="fas fa-search text-white"></i>
+                    </div>
+                    <h3 className="fw-bold mb-0">Product Browser Plugin</h3>
+                  </div>
+                  <div className="mb-3">
+                    <span className="badge bg-primary">Search</span>
+                  </div>
+                  <p className="text-muted mb-3">
+                    Intelligent product discovery with advanced filtering, search suggestions, and personalized recommendations.
+                  </p>
+                  <ul className="list-unstyled mb-4">
+                    <li><i className="fas fa-check text-success me-2"></i>Smart search algorithms</li>
+                    <li><i className="fas fa-check text-success me-2"></i>Advanced filtering options</li>
+                    <li><i className="fas fa-check text-success me-2"></i>Personalized recommendations</li>
+                  </ul>
+                  <button className="btn btn-primary">
+                    <i className="fas fa-arrow-right me-2"></i>
+                    Learn More
+                  </button>
+                </div>
+              </div>
+            </div>
+
+            <div className="col-md-6 mb-5">
+              <div className={`card h-100 ${isVisible.features ? 'animate-fade-in-left' : ''}`}>
+                <div className="card-body p-4">
+                  <div className="d-flex align-items-center mb-3">
+                    <div className="bg-warning rounded-circle p-3 me-3">
+                      <i className="fas fa-boxes text-white"></i>
+                    </div>
+                    <h3 className="fw-bold mb-0">Manage Products Plugin</h3>
+                  </div>
+                  <div className="mb-3">
+                    <span className="badge bg-warning">Management</span>
+                  </div>
+                  <p className="text-muted mb-3">
+                    Comprehensive product management system with bulk operations, category management, and performance analytics.
+                  </p>
+                  <ul className="list-unstyled mb-4">
+                    <li><i className="fas fa-check text-success me-2"></i>Bulk product operations</li>
+                    <li><i className="fas fa-check text-success me-2"></i>Category management</li>
+                    <li><i className="fas fa-check text-success me-2"></i>Performance analytics</li>
+                  </ul>
+                  <button className="btn btn-primary">
+                    <i className="fas fa-arrow-right me-2"></i>
+                    Learn More
+                  </button>
+                </div>
+              </div>
+            </div>
+
+            <div className="col-md-6 mb-5">
+              <div className={`card h-100 ${isVisible.features ? 'animate-fade-in-right' : ''}`}>
+                <div className="card-body p-4">
+                  <div className="d-flex align-items-center mb-3">
+                    <div className="bg-info rounded-circle p-3 me-3">
+                      <i className="fas fa-credit-card text-white"></i>
+                    </div>
+                    <h3 className="fw-bold mb-0">Payment Plugin</h3>
+                  </div>
+                  <div className="mb-3">
+                    <span className="badge bg-info">Payment</span>
+                  </div>
+                  <p className="text-muted mb-3">
+                    Secure payment processing with multiple payment gateways, fraud protection, and automated reconciliation.
+                  </p>
+                  <ul className="list-unstyled mb-4">
+                    <li><i className="fas fa-check text-success me-2"></i>Multiple payment gateways</li>
+                    <li><i className="fas fa-check text-success me-2"></i>Fraud protection</li>
+                    <li><i className="fas fa-check text-success me-2"></i>Automated reconciliation</li>
+                  </ul>
+                  <button className="btn btn-primary">
+                    <i className="fas fa-arrow-right me-2"></i>
+                    Learn More
+                  </button>
+                </div>
+              </div>
+            </div>
+          </div>
+        </div>
+      </section>
+
+      {/* Stats Section */}
+      <section className={`py-5 bg-light ${isVisible.stats ? 'animate-fade-in-up' : ''}`}>
+        <div className="container">
+          <div className="text-center mb-5">
+            <h2 className="fw-bold mb-3">
+              <span>There are good reasons to</span>{" "}
+              <span className="gradient-text">be proud</span>
+            </h2>
+          </div>
+          <div className="row gx-lg-5">
+            <div className="col-md-4 mb-5 mb-md-4">
+              <div className={`text-center ${isVisible.stats ? 'animate-fade-in-left' : ''}`}>
+                <div className="bg-primary rounded-circle p-4 d-inline-block mb-4 animate-pulse">
+                  <i className="fas fa-smile-beam fa-2x text-white"></i>
+                </div>
+                <h3 className="fw-bold gradient-text mb-3 display-4">1000+</h3>
+                <h5 className="text-muted mb-0">Happy Customers</h5>
+              </div>
+            </div>
+            <div className="col-md-4 mb-5 mb-md-4">
+              <div className={`text-center ${isVisible.stats ? 'animate-fade-in-up' : ''}`}>
+                <div className="bg-success rounded-circle p-4 d-inline-block mb-4 animate-pulse">
+                  <i className="fas fa-chart-line fa-2x text-white"></i>
+                </div>
+                <h3 className="fw-bold gradient-text mb-3 display-4">70%</h3>
+                <h5 className="text-muted mb-0">Growth Rate</h5>
+              </div>
+            </div>
+            <div className="col-md-4 mb-5 mb-md-4">
+              <div className={`text-center ${isVisible.stats ? 'animate-fade-in-right' : ''}`}>
+                <div className="bg-warning rounded-circle p-4 d-inline-block mb-4 animate-pulse">
+                  <i className="fas fa-cogs fa-2x text-white"></i>
+                </div>
+                <h3 className="fw-bold gradient-text mb-3 display-4">49+</h3>
+                <h5 className="text-muted mb-0">Active Projects</h5>
+              </div>
+            </div>
+          </div>
+        </div>
+      </section>
+
+      {/* Testimonials Section */}
+      <section className={`py-5 ${isVisible.testimonials ? 'animate-fade-in-up' : ''}`}>
+        <div className="container">
+          <div className="text-center mb-5">
+            <h2 className="fw-bold mb-3 gradient-text">What Our Users Say</h2>
+            <p className="lead text-muted">Real feedback from satisfied customers</p>
+          </div>
+          <div className="row gx-lg-5">
+            <div className="col-lg-6 mb-4">
+              <div className={`card h-100 ${isVisible.testimonials ? 'animate-fade-in-left' : ''}`}>
+                <div className="card-body p-4">
+                  <div className="d-flex align-items-center mb-3">
                     <img
                       src={SamarthRai}
-                      className="w-100"
-                      alt=""
-                      aria-controls="#picker-editor"
+                      className="rounded-circle me-3"
+                      width="60"
+                      height="60"
+                      alt="Samarth Rai"
+                      style={{ objectFit: 'cover' }}
                     />
-                    <svg
-                      className="position-absolute card-img-top img-fluid"
-                      xmlns="http://www.w3.org/2000/svg"
-                      viewBox="0 0 1440 320"
-                      style={{ left: 0, bottom: 0 }}
-                    >
-                      <path
-                        fill="#fff"
-                        d="M0,288L48,272C96,256,192,224,288,197.3C384,171,480,149,576,165.3C672,181,768,235,864,250.7C960,267,1056,245,1152,250.7C1248,256,1344,288,1392,304L1440,320L1440,320L1392,320C1344,320,1248,320,1152,320C1056,320,960,320,864,320C768,320,672,320,576,320C480,320,384,320,288,320C192,320,96,320,48,320L0,320Z"
-                      />
-                    </svg>
+                    <div>
+                      <h5 className="card-title mb-1">Samarth Rai</h5>
+                      <h6 className="text-primary mb-0">Web Developer</h6>
+                    </div>
                   </div>
-                  <div className="card-body">
-                    <h5 className="card-title">Samarth Rai</h5>
-                    <h6 className="text-primary mb-3">Web Developer</h6>
-                    <ul className="list-unstyled d-flex justify-content-center mb-3">
-                      <li>
-                        <i className="fas fa-star fa-sm text-warning" />
-                      </li>
-                      <li>
-                        <i className="fas fa-star fa-sm text-warning" />
-                      </li>
-                      <li>
-                        <i className="fas fa-star fa-sm text-warning" />
-                      </li>
-                      <li>
-                        <i className="fas fa-star fa-sm text-warning" />
-                      </li>
-                      <li>
-                        <i className="fas fa-star-half-alt fa-sm text-warning" />
-                      </li>
-                    </ul>
-                    <p className="card-text">
-                      As a web developer, I have a passion for crafting engaging
-                      and user-friendly websites. With expertise in front-end
-                      and back-end technologies.
-                    </p>
+                  <div className="mb-3">
+                    <i className="fas fa-star text-warning"></i>
+                    <i className="fas fa-star text-warning"></i>
+                    <i className="fas fa-star text-warning"></i>
+                    <i className="fas fa-star text-warning"></i>
+                    <i className="fas fa-star text-warning"></i>
                   </div>
-                </div>
-              </div>
-              <div className="col-lg-4 mb-4 mb-lg-0">
-                <div className="card">
-                  <div
-                    className="bg-image hover-overlay ripple"
-                    data-ripple-color="light"
-                  >
-                    <img
-                      src={DeepakPic}
-                      className="w-100"
-                      alt=""
-                      aria-controls="#picker-editor"
-                    />
-                    <svg
-                      className="position-absolute card-img-top img-fluid"
-                      xmlns="http://www.w3.org/2000/svg"
-                      viewBox="0 0 1440 320"
-                      style={{ left: 0, bottom: 0 }}
-                    >
-                      <path
-                        fill="#fff"
-                        d="M0,96L48,128C96,160,192,224,288,240C384,256,480,224,576,213.3C672,203,768,213,864,202.7C960,192,1056,160,1152,128C1248,96,1344,64,1392,48L1440,32L1440,320L1392,320C1344,320,1248,320,1152,320C1056,320,960,320,864,320C768,320,672,320,576,320C480,320,384,320,288,320C192,320,96,320,48,320L0,320Z"
-                      />
-                    </svg>
-                  </div>
-                  <div className="card-body">
-                    <h5 className="card-title">Deepak</h5>
-                    <h6 className="text-primary mb-3">Web Developer</h6>
-                    <ul className="list-unstyled d-flex justify-content-center mb-3">
-                      <li>
-                        <i className="fas fa-star fa-sm text-warning" />
-                      </li>
-                      <li>
-                        <i className="fas fa-star fa-sm text-warning" />
-                      </li>
-                      <li>
-                        <i className="fas fa-star fa-sm text-warning" />
-                      </li>
-                      <li>
-                        <i className="fas fa-star fa-sm text-warning" />
-                      </li>
-                      <li>
-                        <i className="fas fa-star-half-alt fa-sm text-warning" />
-                      </li>
-                    </ul>
-                    <p className="card-text">
-                      As a web developer, I have a passion for crafting engaging
-                      and user-friendly websites. With expertise in front-end
-                      and back-end technologies.
-                    </p>
-                  </div>
-                </div>
-              </div>
-              {/* <div className="col-lg-4 mb-4 mb-lg-0">
-              <div className="card">
-                <div
-                  className="bg-image hover-overlay ripple"
-                  data-ripple-color="light"
-                >
-                  <img
-                    src="https://mdbootstrap.com/img/new/avatars/15.jpg"
-                    className="w-100"
-                    alt=""
-                    aria-controls="#picker-editor"
-                  />
-                  <svg
-                    className="position-absolute"
-                    xmlns="http://www.w3.org/2000/svg"
-                    viewBox="0 0 1440 320"
-                    style={{ left: 0, bottom: 0 }}
-                  >
-                    <path
-                      fill="#fff"
-                      d="M0,288L48,256C96,224,192,160,288,160C384,160,480,224,576,213.3C672,203,768,117,864,85.3C960,53,1056,75,1152,69.3C1248,64,1344,32,1392,16L1440,0L1440,320L1392,320C1344,320,1248,320,1152,320C1056,320,960,320,864,320C768,320,672,320,576,320C480,320,384,320,288,320C192,320,96,320,48,320L0,320Z"
-                    />
-                  </svg>
-                </div>
-                <div className="card-body">
-                  <h5 className="card-title">Lisa Trey</h5>
-                  <h6 className="text-primary mb-3">Public Relations</h6>
-                  <ul className="list-unstyled d-flex justify-content-center mb-3">
-                    <li>
-                      <i className="fas fa-star fa-sm text-warning" />
-                    </li>
-                    <li>
-                      <i className="fas fa-star fa-sm text-warning" />
-                    </li>
-                    <li>
-                      <i className="fas fa-star fa-sm text-warning" />
-                    </li>
-                    <li>
-                      <i className="fas fa-star fa-sm text-warning" />
-                    </li>
-                    <li>
-                      <i className="fas fa-star-half-alt fa-sm text-warning" />
-                    </li>
-                  </ul>
-                  <p className="card-text">
-                    Enim ad minima veniam, quis nostrum exercitationem ullam
-                    corporis suscipit laboriosam, nisi ut aliquid commodi quis
-                    nostrum minima.
+                  <p className="card-text text-muted">
+                    "PluginVerse has revolutionized how I build e-commerce websites. The plugins are intuitive, well-documented, and the support team is incredibly responsive."
                   </p>
                 </div>
               </div>
-            </div> */}
             </div>
-          </section>
-        </section>
-        {/**/}
-      </div>
+            <div className="col-lg-6 mb-4">
+              <div className={`card h-100 ${isVisible.testimonials ? 'animate-fade-in-right' : ''}`}>
+                <div className="card-body p-4">
+                  <div className="d-flex align-items-center mb-3">
+                    <img
+                      src={DeepakPic}
+                      className="rounded-circle me-3"
+                      width="60"
+                      height="60"
+                      alt="Deepak"
+                      style={{ objectFit: 'cover' }}
+                    />
+                    <div>
+                      <h5 className="card-title mb-1">Deepak</h5>
+                      <h6 className="text-primary mb-0">Full Stack Developer</h6>
+                    </div>
+                  </div>
+                  <div className="mb-3">
+                    <i className="fas fa-star text-warning"></i>
+                    <i className="fas fa-star text-warning"></i>
+                    <i className="fas fa-star text-warning"></i>
+                    <i className="fas fa-star text-warning"></i>
+                    <i className="fas fa-star text-warning"></i>
+                  </div>
+                  <p className="card-text text-muted">
+                    "The quality of plugins and the ease of integration is outstanding. It has significantly reduced our development time and improved our client satisfaction."
+                  </p>
+                </div>
+              </div>
+            </div>
+          </div>
+        </div>
+      </section>
     </div>
   );
 };

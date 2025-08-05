@@ -1,22 +1,28 @@
-import React, { useState } from 'react'
-import { Navigate } from 'react-router-dom';
-import Swal from 'sweetalert2';
+import React from 'react';
+import { useUserContext } from '../../context/UserProvider';
 
-const UserAuth = ({children}) => {
-  
-    const [currentUser, setCurrentUser] = useState(JSON.parse(sessionStorage.getItem('user')));
-    
-    if(currentUser!==null){
-        return children;
-    }
-    else{
-        Swal.fire({
-            icon: 'error',
-            title : 'Error',
-            text: 'Please Login First!!',
-        })
-        return <Navigate to="/main/login" />
-    }
-}
+const UserAuth = ({ children }) => {
+  const { loggedIn } = useUserContext();
 
-export default UserAuth
+  if (!loggedIn) {
+    return (
+      <div className="container mt-5">
+        <div className="row justify-content-center">
+          <div className="col-md-6">
+            <div className="card">
+              <div className="card-body text-center">
+                <h3>Please Login to Continue</h3>
+                <p>You need to be logged in to access this page.</p>
+                <a href="/main/login" className="btn btn-primary">Login</a>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+    );
+  }
+
+  return children;
+};
+
+export default UserAuth;
